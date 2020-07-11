@@ -5,6 +5,7 @@ module.exports = {
       name: `Dmitriy Pereverza`,
       summary: `Fullstack Senior programmer`,
     },
+    siteUrl: "https://dpereverza-blog.netlify.app/",
     description: `Dmitriy Pereverza Blog`,
   },
   plugins: [

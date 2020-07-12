@@ -1,21 +1,23 @@
-import React from "react"
-import { Link, graphql } from "gatsby"
+import React from "react";
+import { Link, graphql } from "gatsby";
 
-import Bio from "../components/bio"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
-import { rhythm } from "../utils/typography"
+import Bio from "../components/bio";
+import Layout from "../components/layout";
+import SEO from "../components/seo";
+import { rhythm } from "../utils/typography";
+import Wrapper from "../primitives/Wrapper";
+import { Aligns, flex, jc } from "../libs/styles";
 
 const BlogIndex = ({ data, location }) => {
-  const siteTitle = data.site.siteMetadata.title
-  const posts = data.allMarkdownRemark.edges
+  const siteTitle = data.site.siteMetadata.title;
+  const posts = data.allMarkdownRemark.edges;
 
   return (
     <Layout location={location} title={siteTitle}>
       <SEO title="All posts" />
       <Bio />
       {posts.map(({ node }) => {
-        const title = node.frontmatter.title || node.fields.slug
+        const title = node.frontmatter.title || node.fields.slug;
         return (
           <article key={node.fields.slug}>
             <header>
@@ -30,6 +32,9 @@ const BlogIndex = ({ data, location }) => {
               </h3>
               <small>{node.frontmatter.date}</small>
             </header>
+            <Wrapper styles={[flex, jc(Aligns.CENTER)]}>
+              <img src={node.frontmatter.image} />
+            </Wrapper>
             <section>
               <p
                 dangerouslySetInnerHTML={{
@@ -38,13 +43,13 @@ const BlogIndex = ({ data, location }) => {
               />
             </section>
           </article>
-        )
+        );
       })}
     </Layout>
-  )
-}
+  );
+};
 
-export default BlogIndex
+export default BlogIndex;
 
 export const pageQuery = graphql`
   query {
@@ -64,9 +69,10 @@ export const pageQuery = graphql`
             date(formatString: "MMMM DD, YYYY")
             title
             description
+            image
           }
         }
       }
     }
   }
-`
+`;
